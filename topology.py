@@ -4,17 +4,29 @@ from mininet.node import RemoteController
 from mininet.cli import CLI
 from mininet.log import setLogLevel
 
-class PathTracingTopo(Topo):
-    # Linear 3-switch topology with 4 hosts.
+
+"""
+SDN Path Tracing Tool - Custom Mininet Topology
+Creates: 3 switches (S1, S2, S3) in a linear chain + 4 hosts
+  H1 -- S1 -- S2 -- S3 -- H4
+         |           |
+         H2          H3
+"""
+
+
+class PathTracingTopo(Topo): 
+    # Defining a custom topology class that inherits from the Topo class provided by Mininet. This allows us to create a specific network topology for our SDN path tracing tool.
+    # 3-switch topology with 4 hosts.
 
     def build(self):
+        # self is a reference to the topology object, which is used to add switches, hosts, and links.
         # Create switches and assign dpid manually
 
         s1 = self.addSwitch('s1', dpid='0000000000000001')
         s2 = self.addSwitch('s2', dpid='0000000000000002')
         s3 = self.addSwitch('s3', dpid='0000000000000003')
 
-        h1 = self.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01')
+        h1 = self.addHost('h1', ip='10.0.0.1/24', mac='00:00:00:00:00:01') #assigning mac address and names
         h2 = self.addHost('h2', ip='10.0.0.2/24', mac='00:00:00:00:00:02')
         h3 = self.addHost('h3', ip='10.0.0.3/24', mac='00:00:00:00:00:03')
         h4 = self.addHost('h4', ip='10.0.0.4/24', mac='00:00:00:00:00:04')
@@ -31,7 +43,7 @@ def run():
     topo = PathTracingTopo()
     net = Mininet(
         topo=topo,
-        controller=lambda name: RemoteController(name, ip='127.0.0.1', port=6653)
+        controller=lambda name: RemoteController(name, ip='127.0.0.1', port=6653) #connect to the remote controller running on localhost at port 6653 ( RYU)
     )
     net.start()
     print("Your network has started!")
