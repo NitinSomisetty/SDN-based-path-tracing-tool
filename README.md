@@ -159,14 +159,7 @@ When a packet does not match existing entries, switch sends `packet_in` to contr
 Each flow is tracked by `(src_mac, dst_mac)`. As packets move, switch visits are logged and printed as a path when destination is reached.
 
 
-## Limitations and Future Improvements
-
-Current limitations:
-- Path tracing is event/log based, not packet-capture level
-- Static topology (3 switches, 4 hosts)
-- Blocking policy is preconfigured by MAC pair
-
-Future improvements:
+### Future improvements:
 - Dynamic shortest-path routing from discovered topology
 - Dashboard/REST API for real-time path visualization
 - Export traces to CSV/JSON
